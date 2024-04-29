@@ -14,7 +14,10 @@
     "react": "^18",
     "react-dom": "^18",
     "styletron-engine-monolithic": "^1.0.0",
-    "styletron-react": "^6.1.0"
+    "styletron-react": "^6.1.0",
+    "@reduxjs/toolkit": "^2.2.3",
+    "react-redux": "^9.1.1",
+    "sass": "^1.75.0"
   },
   "devDependencies": {
     "@types/node": "^20",
