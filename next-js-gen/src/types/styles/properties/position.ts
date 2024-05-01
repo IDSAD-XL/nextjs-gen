@@ -5,7 +5,7 @@ import {
   StringUnit,
 } from '@/types/measurements/measurements';
 
-export interface Position extends GenericStyle {
+export default interface Position extends GenericStyle {
   name: 'position';
   props: {
     position?: StringUnit<

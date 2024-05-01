@@ -1,7 +1,7 @@
 import { GenericStyle } from '@/types/styles/styles';
 import { NumericMeasurementUnits } from '@/types/measurements/measurements';
 
-export interface SizeProps extends GenericStyle {
+export default interface Size extends GenericStyle {
   name: 'size';
   props: {
     width?: NumericMeasurementUnits;

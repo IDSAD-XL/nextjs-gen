@@ -1,7 +1,7 @@
 import { GenericStyle } from '@/types/styles/styles';
 import { NumericMeasurementUnits } from '@/types/measurements/measurements';
 
-export interface Padding extends GenericStyle {
+export default interface Padding extends GenericStyle {
   name: 'padding';
   props: {
     paddingTop?: NumericMeasurementUnits;

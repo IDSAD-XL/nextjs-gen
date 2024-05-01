@@ -1,7 +1,7 @@
 import { GenericStyle } from '@/types/styles/styles';
 import { HexUnit, StringUnit } from '@/types/measurements/measurements';
 
-export interface Colors extends GenericStyle {
+export default interface Colors extends GenericStyle {
   name: 'colors';
   props: {
     color?: HexUnit | StringUnit<string>;

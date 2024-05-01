@@ -5,7 +5,7 @@ import {
   StringUnit,
 } from '@/types/measurements/measurements';
 
-export interface Border extends GenericStyle {
+export default interface Border extends GenericStyle {
   name: 'border';
   props: {
     borderTop?: NumericMeasurementUnits;

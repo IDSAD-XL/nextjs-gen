@@ -1,6 +1,6 @@
 import { MeasurementUnit } from '@/types/measurements/measurements';
 
-export type StyleValue = {
+type StyleValue = {
   [key in keyof CSSStyleDeclaration]?: MeasurementUnit;
 };
 
