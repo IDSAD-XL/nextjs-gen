@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import { styletron } from "@/styletron/styletron";
-import { BaseProvider, LightTheme } from "baseui";
-import { Provider as StyletronProvider } from "styletron-react";
+import React from 'react';
+import { styletron } from '@/styletron/styletron';
+import { BaseProvider, LightTheme } from 'baseui';
+import { Provider as StyletronProvider } from 'styletron-react';
 
 const THEME = {
-  light: "light",
-  dark: "dark",
+  light: 'light',
+  dark: 'dark',
 };
 
 const ThemeWrapper: React.FC<{

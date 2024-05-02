@@ -4,7 +4,7 @@ import './globals.scss';
 import React from 'react';
 import ThemeWrapper from '@/components/ui/ThemeWrapper';
 import Header from '@/components/ui/Header';
-import Sidebar from '@/components/ui/Sidebar';
+import classNames from 'classnames';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,13 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={classNames(inter.className, 'flex min-h-screen flex-col')}
+      >
         <ThemeWrapper>
           <Header />
-          <div className="flex">
-            <Sidebar />
-            <main className="w-full">{children}</main>
-          </div>
+          {children}
         </ThemeWrapper>
       </body>
     </html>
