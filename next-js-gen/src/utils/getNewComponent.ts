@@ -14,7 +14,9 @@ export default function getNewComponent(
       element = MockDiv;
   }
 
-  element.id = uuid4();
+  const clonedElement = structuredClone(element);
 
-  return element;
+  clonedElement.id = uuid4();
+
+  return clonedElement;
 }

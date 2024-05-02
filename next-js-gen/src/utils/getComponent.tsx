@@ -1,10 +1,10 @@
-import { BaseComponent } from '@/types/pageComponents/baseComponent';
 import DivElement from '@/components/elements/DivElement';
-import { Div } from '@/types/pageComponents/components';
+import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
 
 export default function getComponent(
-  component: BaseComponent,
-  key: number | string
+  component: ComponentsTypes,
+  key: number | string,
+  path: string[] = []
 ) {
   let Comp;
   switch (component.name) {
@@ -15,18 +15,20 @@ export default function getComponent(
       Comp = DivElement;
       break;
   }
+
+  const currentPath = [...path, component.id];
+
   return (
     // @ts-ignore
-    <Comp key={key} {...component}>
-      {component.slots && getSlots(component.slots)}
+    <Comp key={key} {...component} path={currentPath}>
+      {component.slots && getSlots(component.slots, currentPath)}
     </Comp>
   );
 }
 
-function getSlots(slots: BaseComponent[]) {
-  console.log(slots);
+function getSlots(slots: ComponentsTypes[], path: string[]) {
   if (!slots) return null;
   return slots.map((slot) => {
-    return getComponent(slot, slot.id);
+    return getComponent(slot, slot.id, path);
   });
 }
