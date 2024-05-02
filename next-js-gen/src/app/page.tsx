@@ -1,12 +1,12 @@
-"use client";
-import { Button } from "baseui/button";
-import React from "react";
+'use client';
+import React from 'react';
+import EditorComponent from '@/components/editor/EditorComponent';
+import { editorData } from '@/mock/editor';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <h1>Text test</h1>
-      <Button onClick={() => alert("click")}>Hello</Button>
-    </main>
+    <section className="flex min-h-screen flex-col items-center justify-between pt-[80px]">
+      <EditorComponent {...editorData} />
+    </section>
   );
 }
