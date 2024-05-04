@@ -5,6 +5,7 @@ import useEditorStore from '@/store/useEditorStore';
 import Sidebar from '@/components/ui/Sidebar';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import SettingsEditorSidebar from '@/components/editor/SettingsEditorSidebar';
 
 export default function Home() {
   const { editorData } = useEditorStore();
@@ -17,6 +18,7 @@ export default function Home() {
           <main className="flex w-full flex-col">
             <EditorComponent {...editorData} />
           </main>
+          <SettingsEditorSidebar />
         </div>
       </DndProvider>
     </section>

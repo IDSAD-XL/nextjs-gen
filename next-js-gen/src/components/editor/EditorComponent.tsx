@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Editor } from '@/types/editor';
 import getComponent from '@/utils/getComponent';
 import useEditorStore from '@/store/useEditorStore';
 import { useDrop } from 'react-dnd';
-import getNewComponent from '@/utils/getNewComponent';
 import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
 
 export interface IEditor extends Editor {}

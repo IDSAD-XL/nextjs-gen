@@ -20,7 +20,7 @@ export default function getComponent(
 
   return (
     // @ts-ignore
-    <Comp key={key} {...component} path={currentPath}>
+    <Comp key={key} component={component} path={currentPath}>
       {component.slots && getSlots(component.slots, currentPath)}
     </Comp>
   );

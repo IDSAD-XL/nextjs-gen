@@ -1,7 +1,7 @@
 import { MeasurementUnit } from '@/types/measurements/measurements';
 
-type StyleValue = {
-  [key in keyof CSSStyleDeclaration]?: MeasurementUnit;
+export type StyleValue = {
+  [key: string]: MeasurementUnit;
 };
 
 export interface GenericStyle {
