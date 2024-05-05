@@ -1,5 +1,6 @@
 import DivElement from '@/components/elements/DivElement';
 import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
+import { ElementWithDropTarget } from '@/components/editor/ElementWithDropTarget';
 
 export default function getComponent(
   component: ComponentsTypes,
@@ -19,10 +20,14 @@ export default function getComponent(
   const currentPath = [...path, component.id];
 
   return (
-    // @ts-ignore
-    <Comp key={key} component={component} path={currentPath}>
+    <ElementWithDropTarget
+      key={component.id}
+      componentData={component}
+      path={currentPath}
+      Component={Comp}
+    >
       {component.slots && getSlots(component.slots, currentPath)}
-    </Comp>
+    </ElementWithDropTarget>
   );
 }
 

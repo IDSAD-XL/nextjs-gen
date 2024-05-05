@@ -10,7 +10,7 @@ export const EditorProperties = [
     properties: [
       {
         name: 'borderBottom',
-        availableUnits: ['px', 'em', 'rem', ''],
+        availableUnits: ['px', 'em', 'rem', '%'],
       },
     ],
   } as PropertiesGroup<Border>,

@@ -25,6 +25,32 @@ export const MockDiv: Div = {
         },
       },
     },
+    {
+      name: 'padding',
+      props: {
+        paddingTop: {
+          unit: 'px',
+          value: '10px',
+        },
+      },
+    },
+    {
+      name: 'border',
+      props: {
+        borderWidth: {
+          unit: 'px',
+          value: '1px',
+        },
+        borderColor: {
+          unit: 'string',
+          value: 'red',
+        },
+        borderTop: {
+          unit: 'string',
+          value: 'solid red',
+        },
+      },
+    },
   ],
   slots: [],
 };

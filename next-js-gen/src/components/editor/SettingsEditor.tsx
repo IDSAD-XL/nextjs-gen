@@ -9,7 +9,7 @@ interface ISettingsEditor {
 const SettingsEditor: React.FC<ISettingsEditor> = ({ settings }) => {
   return (
     <div className="flex flex-col gap-[20px] text-white">
-      {settings &&
+      {/*{settings &&
         settings.map((setting, idx) => {
           return (
             <>
@@ -30,7 +30,7 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({ settings }) => {
               })}
             </>
           );
-        })}
+        })}*/}
     </div>
   );
 };

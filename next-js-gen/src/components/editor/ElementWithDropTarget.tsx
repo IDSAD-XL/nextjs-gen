@@ -1,41 +1,58 @@
-import React, {
-  ComponentType,
-  FC,
-  ForwardedRef,
-  useEffect,
-  useRef,
-} from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 import { useDrop, DropTargetMonitor } from 'react-dnd';
 import useEditorStore from '@/store/useEditorStore';
+import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
+import { IDivElement } from '@/components/elements/DivElement';
 
-interface WithDropTargetProps {
-  id: string;
-  props: {};
+export interface IElementWithDropTarget {
+  componentData: ComponentsTypes;
+  Component: FC<IDivElement>;
+  path: string[];
+  children?: React.ReactNode;
 }
 
-export const ElementWithDropTarget = <P extends WithDropTargetProps>(
-  Component: FC<P>,
-  props: P,
-  path: string[]
+export const ElementWithDropTarget: React.FC<IElementWithDropTarget> = (
+  props
 ) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const { pushComponent } = useEditorStore();
+  const { pushComponent, setActiveEditorComponent } = useEditorStore();
   const [coll, drop] = useDrop({
     accept: 'COMPONENT',
-    drop: (item: any, monitor: DropTargetMonitor) => {
-      console.log('2');
+    drop: (item: ComponentsTypes['name'], monitor: DropTargetMonitor) => {
       if (!monitor.didDrop()) {
-        pushComponent(item.name, path);
+        pushComponent(item, props.path);
       }
     },
   });
 
-  drop(ref);
+  const setActiveEditorComponentHandler = (e: MouseEvent) => {
+    e.stopPropagation();
+    setActiveEditorComponent(props.componentData, props.path);
+  };
 
   useEffect(() => {
-    console.log(coll);
-  }, [coll]);
+    drop(ref);
+    if (ref.current) {
+      ref.current.addEventListener('click', setActiveEditorComponentHandler);
+    }
+    return () => {
+      if (ref.current) {
+        ref.current.removeEventListener(
+          'click',
+          setActiveEditorComponentHandler
+        );
+      }
+    };
+  });
 
-  return <Component ref={ref} {...props} />;
+  const ComponentWithDropTarget = (props: any) => {
+    return (
+      <props.Component ref={ref} {...props}>
+        {props.children}
+      </props.Component>
+    );
+  };
+
+  return <ComponentWithDropTarget {...props} />;
 };

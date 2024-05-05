@@ -1,5 +1,4 @@
 import { SettingsTypes } from '@/types/styles/settingsTypes';
-import { GenericStyle } from '@/types/styles/styles';
 
 export interface PropertyItem<T extends SettingsTypes['props']> {
   name: keyof T;

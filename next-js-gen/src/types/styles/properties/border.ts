@@ -8,10 +8,10 @@ import {
 export default interface Border extends GenericStyle {
   name: 'border';
   props: {
-    borderTop?: NumericMeasurementUnits;
-    borderRight?: NumericMeasurementUnits;
-    borderBottom?: NumericMeasurementUnits;
-    borderLeft?: NumericMeasurementUnits;
+    borderTop?: StringUnit<string>;
+    borderRight?: StringUnit<string>;
+    borderBottom?: StringUnit<string>;
+    borderLeft?: StringUnit<string>;
     borderColor?: HexUnit | StringUnit<string>;
     borderRadius?: NumericMeasurementUnits;
     borderWidth?: NumericMeasurementUnits;
