@@ -8,12 +8,9 @@ export interface IDivElement {
   path: string[];
 }
 
-const DivElement: React.ForwardRefExoticComponent<
-  React.PropsWithRef<IDivElement>
-> = forwardRef((props, ref) => {
+const DivElement = forwardRef<HTMLDivElement, IDivElement>((props, ref) => {
   return (
     <div
-      // @ts-ignore
       ref={ref}
       key={props.componentData.id}
       style={parseStyles(props.componentData.styles)}

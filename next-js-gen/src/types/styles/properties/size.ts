@@ -8,5 +8,7 @@ export default interface Size extends GenericStyle {
     height?: NumericMeasurementUnits;
     maxWidth?: NumericMeasurementUnits;
     maxHeight?: NumericMeasurementUnits;
+    minWidth?: NumericMeasurementUnits;
+    minHeight?: NumericMeasurementUnits;
   };
 }

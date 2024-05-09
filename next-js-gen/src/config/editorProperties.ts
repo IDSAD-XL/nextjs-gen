@@ -1,7 +1,16 @@
-import { PropertiesGroup, PropertyItem } from '@/types/editor/properties';
-import { GenericStyle } from '@/types/styles/styles';
+import { PropertiesGroup } from '@/types/editor/properties';
 import { Border } from '@/types/styles/properties';
-import { NumericMeasurementUnits } from '@/types/measurements/measurements';
+import { MeasurementUnit } from '@/types/measurements/measurements';
+import Size from '@/types/styles/properties/size';
+
+const NUMERIC_UNITS: MeasurementUnit['unit'][] = [
+  'px',
+  'em',
+  'rem',
+  'percent',
+  'vh',
+  'vw',
+];
 
 export const EditorProperties = [
   {
@@ -10,8 +19,70 @@ export const EditorProperties = [
     properties: [
       {
         name: 'borderBottom',
-        availableUnits: ['px', 'em', 'rem', '%'],
+        availableUnits: ['string'],
+        value: '',
+      },
+      {
+        name: 'borderRight',
+        availableUnits: ['string'],
+        value: '',
+      },
+      {
+        name: 'borderLeft',
+        availableUnits: ['string'],
+        value: '',
+      },
+      {
+        name: 'borderTop',
+        availableUnits: ['string'],
+        value: '',
+      },
+      {
+        name: 'borderColor',
+        availableUnits: ['hex', 'string'],
+        value: '',
+      },
+      {
+        name: 'borderWidth',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
       },
     ],
   } as PropertiesGroup<Border>,
+  {
+    name: 'size',
+    displayName: 'Size',
+    properties: [
+      {
+        name: 'width',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+      {
+        name: 'height',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+      {
+        name: 'minWidth',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+      {
+        name: 'minHeight',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+      {
+        name: 'maxWidth',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+      {
+        name: 'maxHeight',
+        availableUnits: NUMERIC_UNITS,
+        value: '',
+      },
+    ],
+  } as PropertiesGroup<Size>,
 ];

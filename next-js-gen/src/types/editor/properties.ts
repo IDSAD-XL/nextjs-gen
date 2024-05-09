@@ -1,9 +1,10 @@
 import { SettingsTypes } from '@/types/styles/settingsTypes';
+import { MeasurementUnit } from '@/types/measurements/measurements';
 
 export interface PropertyItem<T extends SettingsTypes['props']> {
   name: keyof T;
-  availableUnits: T[keyof T]['unit'][];
-  value: T[keyof T]['value'];
+  availableUnits: MeasurementUnit['unit'][];
+  value: any;
 }
 
 export interface PropertiesGroup<T extends SettingsTypes> {
