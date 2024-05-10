@@ -28,6 +28,7 @@ export const ElementWithDropTarget: React.FC<IElementWithDropTarget> = (
 
   const setActiveEditorComponentHandler = (e: MouseEvent) => {
     e.stopPropagation();
+    console.log(props.path);
     setActiveEditorComponent(props.componentData, props.path);
   };
 

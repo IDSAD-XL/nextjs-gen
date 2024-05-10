@@ -41,7 +41,10 @@ const SettingsEditorSidebar = () => {
           <p className="my-[6px] text-medium text-white">
             {activeComponent?.id}
           </p>
-          <SettingsEditor availableSettings={availableSettings} />
+          <SettingsEditor
+            availableSettings={availableSettings}
+            componentSettings={activeComponent.styles}
+          />
         </>
       )}
     </div>

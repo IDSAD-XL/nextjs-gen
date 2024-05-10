@@ -9,31 +9,35 @@ interface EditorState {
   editorData: Editor;
   activeEditorComponent: {
     component: ComponentsTypes;
-    parentElementsPathIds?: string[];
+    parentElementsPathIds: string[];
   } | null;
   setActiveEditorComponent: (
     component: ComponentsTypes,
-    parentElementsPathIds?: string[]
+    parentElementsPathIds: string[]
   ) => void;
   pushComponent: (
     component: ComponentsTypes['name'],
     parentElementsPathIds?: string[]
   ) => void;
-  editComponent: (
-    componentId: string,
-    parentElementsPathIds: string[],
-    settings: SettingsTypes[]
-  ) => void;
+  editComponent: (settings: SettingsTypes[]) => void;
 }
 
-const useEditorStore = create<EditorState>((set) => ({
+const useEditorStore = create<EditorState>((set, getState) => ({
   editorData: {
     components: [],
   },
   activeEditorComponent: null,
   setActiveEditorComponent: (component, parentElementsPathIds) => {
-    console.log(component);
-    set({ activeEditorComponent: { component, parentElementsPathIds } });
+    console.log(component, parentElementsPathIds);
+    set((state) => {
+      return {
+        activeEditorComponent: {
+          component,
+          parentElementsPathIds,
+        },
+      };
+    });
+    console.log(getState());
   },
   pushComponent: (
     componentTagName: ComponentsTypes['name'],
@@ -59,22 +63,23 @@ const useEditorStore = create<EditorState>((set) => ({
       return { editorData: { components } };
     });
   },
-  editComponent: (componentId, parentElementsPathIds, settings) => {
+  editComponent: (settings) => {
     set((state) => {
       const { components } = state.editorData;
+      const activeComponent = state.activeEditorComponent;
 
-      console.log(componentId);
-      console.log(components);
+      if (activeComponent?.parentElementsPathIds) {
+        const foundElement = findComponentByIdPath(
+          components,
+          activeComponent.parentElementsPathIds
+        );
 
-      const foundElement = findComponentByIdPath(
-        components,
-        parentElementsPathIds
-      );
+        console.log(activeComponent);
+        console.log(foundElement);
 
-      console.log(foundElement);
-
-      if (foundElement) {
-        foundElement.styles = settings;
+        if (foundElement) {
+          foundElement.styles = settings;
+        }
       }
 
       return { editorData: { components } };
