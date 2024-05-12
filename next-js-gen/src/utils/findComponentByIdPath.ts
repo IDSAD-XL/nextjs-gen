@@ -4,10 +4,11 @@ export default function findComponentByIdPath(
   components: ComponentsTypes[],
   idPath: string[]
 ): ComponentsTypes | undefined {
-  const id = [...idPath].shift();
+  const copyIdPath = [...idPath];
+  const id = copyIdPath.shift();
   if (!id) return;
   const component = components.find((component) => component.id === id);
   if (!component) return;
-  if (idPath.length === 0) return component;
-  return findComponentByIdPath(component.slots || [], idPath);
+  if (copyIdPath.length === 0) return component;
+  return findComponentByIdPath(component.slots || [], copyIdPath);
 }

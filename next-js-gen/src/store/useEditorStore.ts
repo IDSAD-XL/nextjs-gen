@@ -68,14 +68,13 @@ const useEditorStore = create<EditorState>((set, getState) => ({
       const { components } = state.editorData;
       const activeComponent = state.activeEditorComponent;
 
+      console.log(settings);
+
       if (activeComponent?.parentElementsPathIds) {
         const foundElement = findComponentByIdPath(
           components,
           activeComponent.parentElementsPathIds
         );
-
-        console.log(activeComponent);
-        console.log(foundElement);
 
         if (foundElement) {
           foundElement.styles = settings;

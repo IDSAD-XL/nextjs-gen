@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SettingsTypes } from '@/types/styles/settingsTypes';
 import { PropertiesGroup, PropertyItem } from '@/types/editor/properties';
 import { MeasurementUnit } from '@/types/measurements/measurements';
@@ -23,19 +23,35 @@ const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
   const [activeUnit, setActiveUnit] = useState(item.activeUnit);
   const [value, setValue] = useState(item.value);
 
-  const debouncedValueCb = useDebounceCallback(onValueChange, 500);
+  const debouncedValueCb = useDebounceCallback(onValueChange, 200);
 
-  const valueChangeHandler = (value: any) => {
-    debouncedValueCb(groupName, item.name, value, activeUnit);
-    setValue(value);
-  };
+  const valueChangeHandler = useCallback(
+    (value: any) => {
+      setValue(value);
+      debouncedValueCb(groupName, item.name, value, activeUnit);
+    },
+    [groupName, item.name, activeUnit, debouncedValueCb]
+  );
+
+  const unitChangeHandler = useCallback(
+    (unit: MeasurementUnit['unit']) => {
+      setActiveUnit(value);
+      debouncedValueCb(groupName, item.name, value, unit);
+    },
+    [groupName, item.name, activeUnit, debouncedValueCb]
+  );
+
+  useEffect(() => {
+    setValue(item.value);
+    setActiveUnit(item.activeUnit);
+  }, [item.value, item.activeUnit]);
 
   return (
     <div className="mb-[10px] flex flex-col text-small">
       <p className="mr-[10px]">{item.name}</p>
       <div className="mt-[5px] flex">
         <input
-          className="focus:bg-gray-light w-[150px] border-b-[1px] border-white bg-gray-dark text-white focus:outline-none"
+          className="w-[150px] border-b-[1px] border-white bg-gray-dark text-white focus:bg-gray-light focus:outline-none"
           type="text"
           value={value}
           onChange={(e) => valueChangeHandler(e.target.value)}
@@ -45,7 +61,7 @@ const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
           className="ml-[10px] bg-gray-dark text-white"
           name={item.name}
           onChange={(e) =>
-            setActiveUnit(e.target.value as MeasurementUnit['unit'])
+            unitChangeHandler(e.target.value as MeasurementUnit['unit'])
           }
         >
           {item.availableUnits.map((unit, idx) => (

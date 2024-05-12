@@ -5,8 +5,12 @@ export function getValueWithUnit(object: {
   unit: MeasurementUnit['unit'];
 }): string {
   let value;
-  if (['px', 'em', 'rem', 'percent', 'vh', 'vw'].includes(object.unit)) {
+  if (['px', 'em', 'rem', 'vh', 'vw'].includes(object.unit)) {
     return object.value + object.unit;
+  }
+
+  if (object.unit === 'percent') {
+    return object.value + '%';
   }
 
   if (['string', 'numeric', 'hex'].includes(object.unit)) {

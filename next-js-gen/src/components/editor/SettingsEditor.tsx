@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { SettingsTypes } from '@/types/styles/settingsTypes';
 import { PropertiesGroup, PropertyItem } from '@/types/editor/properties';
 import SettingsEditorItem from '@/components/editor/SettingsEditorItem';
@@ -19,35 +19,39 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
   const { editComponent } = useEditorStore();
 
   const mappedAvailableSettingsToActual: PropertiesGroup<SettingsTypes>[] =
-    availableSettings.map((setting) => {
-      const actualSetting = componentSettings.find(
-        (componentSetting) => componentSetting.name === setting.name
-      );
+    useMemo(() => {
+      console.log('changed');
+      console.log(componentSettings);
+      return availableSettings.map((setting) => {
+        const actualSetting = componentSettings.find(
+          (componentSetting) => componentSetting.name === setting.name
+        );
 
-      return {
-        ...setting,
-        properties: setting.properties.map((property) => {
-          const actualProperty = actualSetting?.props[property.name];
+        return {
+          ...setting,
+          properties: setting.properties.map((property) => {
+            const actualProperty = actualSetting?.props[property.name];
 
-          if (actualProperty) {
-            const value = getValueFromObject(
-              actualSetting?.props[property.name]
-            );
-            const unit = (
-              actualSetting?.props[property.name] as MeasurementUnit
-            ).unit;
+            if (actualProperty) {
+              const value = getValueFromObject(
+                actualSetting?.props[property.name]
+              );
+              const unit = (
+                actualSetting?.props[property.name] as MeasurementUnit
+              ).unit;
 
-            return {
-              ...property,
-              value: value,
-              activeUnit: unit,
-            };
-          } else {
-            return property;
-          }
-        }),
-      };
-    });
+              return {
+                ...property,
+                value: value,
+                activeUnit: unit,
+              };
+            } else {
+              return property;
+            }
+          }),
+        };
+      });
+    }, [availableSettings, componentSettings]);
 
   const changeValueHandler = useCallback(
     (
@@ -56,29 +60,41 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
       value: PropertyItem<SettingsTypes['props']>['value'],
       unit: PropertyItem<SettingsTypes['props']>['activeUnit']
     ) => {
-      console.log(groupName, name, value, unit);
+      const settingsCopy = [...componentSettings];
 
-      const newStyles = componentSettings.map((setting) => {
-        if (setting.name === groupName) {
-          return {
-            ...setting,
-            props: {
-              ...setting.props,
-              [name]: {
-                unit,
-                value: getValueWithUnit({ value, unit }),
-              },
-            },
-          };
-        }
+      const findGroup = settingsCopy.find(
+        (setting) => setting.name === groupName
+      );
 
-        return setting;
-      });
+      const updatedValue = {
+        [name]: {
+          unit,
+          value: getValueWithUnit({ value, unit }),
+        },
+      };
 
-      editComponent(newStyles as SettingsTypes[]);
+      if (!findGroup) {
+        settingsCopy.push({
+          name: groupName,
+          props: {
+            ...updatedValue,
+          },
+        });
+      } else {
+        findGroup.props = {
+          ...findGroup.props,
+          ...updatedValue,
+        };
+      }
+
+      editComponent(settingsCopy as SettingsTypes[]);
     },
-    []
+    [componentSettings]
   );
+
+  useEffect(() => {
+    console.log(mappedAvailableSettingsToActual);
+  }, [mappedAvailableSettingsToActual]);
 
   return (
     <div className="flex flex-col gap-[20px] text-white">

@@ -1,5 +1,5 @@
 import { PropertiesGroup } from '@/types/editor/properties';
-import { Border } from '@/types/styles/properties';
+import { Border, Margin, Padding } from '@/types/styles/properties';
 import { MeasurementUnit } from '@/types/measurements/measurements';
 import Size from '@/types/styles/properties/size';
 
@@ -97,4 +97,64 @@ export const EditorProperties = [
       },
     ],
   } as PropertiesGroup<Size>,
+  {
+    name: 'padding',
+    displayName: 'Padding',
+    properties: [
+      {
+        name: 'paddingTop',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'paddingBottom',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'paddingLeft',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'paddingRight',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+    ],
+  } as PropertiesGroup<Padding>,
+  {
+    name: 'margin',
+    displayName: 'Margin',
+    properties: [
+      {
+        name: 'marginTop',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'marginBottom',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'marginLeft',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+      {
+        name: 'marginRight',
+        availableUnits: NUMERIC_UNITS,
+        activeUnit: 'px',
+        value: '',
+      },
+    ],
+  } as PropertiesGroup<Margin>,
 ];

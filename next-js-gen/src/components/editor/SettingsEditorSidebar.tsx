@@ -18,7 +18,7 @@ const SettingsEditorSidebar = () => {
       editorData.components,
       activeEditorComponent.parentElementsPathIds
     );
-  }, [activeEditorComponent]);
+  }, [activeEditorComponent?.component.id]);
 
   const availableSettings = useMemo(() => {
     if (!activeComponent) return [];
@@ -28,14 +28,14 @@ const SettingsEditorSidebar = () => {
     return EditorProperties.filter((setting) => {
       return settingsGroups.includes(setting.name);
     }) as PropertiesGroup<SettingsTypes>[];
-  }, [activeComponent]);
+  }, [activeEditorComponent?.component.id]);
 
   useEffect(() => {
     console.log(availableSettings);
   }, [availableSettings]);
 
   return (
-    <div className="fixed right-0 top-0 h-screen w-[300px] bg-gray-dark px-[12px] pt-[80px]">
+    <div className="fixed right-0 top-0 h-screen w-[300px] overflow-y-auto bg-gray-dark px-[12px] pt-[80px]">
       {activeComponent && (
         <>
           <p className="my-[6px] text-medium text-white">

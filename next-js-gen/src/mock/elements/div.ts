@@ -34,23 +34,6 @@ export const MockDiv: Div = {
         },
       },
     },
-    {
-      name: 'border',
-      props: {
-        borderWidth: {
-          unit: 'px',
-          value: '1px',
-        },
-        borderColor: {
-          unit: 'string',
-          value: 'red',
-        },
-        borderTop: {
-          unit: 'string',
-          value: 'solid red',
-        },
-      },
-    },
   ],
   slots: [],
 };
