@@ -20,8 +20,6 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
 
   const mappedAvailableSettingsToActual: PropertiesGroup<SettingsTypes>[] =
     useMemo(() => {
-      console.log('changed');
-      console.log(componentSettings);
       return availableSettings.map((setting) => {
         const actualSetting = componentSettings.find(
           (componentSetting) => componentSetting.name === setting.name
@@ -92,9 +90,9 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
     [componentSettings]
   );
 
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log(mappedAvailableSettingsToActual);
-  }, [mappedAvailableSettingsToActual]);
+  }, [mappedAvailableSettingsToActual]);*/
 
   return (
     <div className="flex flex-col gap-[20px] text-white">

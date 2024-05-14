@@ -3,6 +3,9 @@ import { SettingsTypes } from '@/types/styles/settingsTypes';
 import { PropertiesGroup, PropertyItem } from '@/types/editor/properties';
 import { MeasurementUnit } from '@/types/measurements/measurements';
 import { useDebounceCallback } from 'usehooks-ts';
+import { getValueFromObject } from '@/utils/getValueFromObject';
+import { Input } from 'baseui/input';
+import { Select, Value } from 'baseui/select';
 
 export interface ISettingsEditorItem {
   onValueChange: (
@@ -15,61 +18,73 @@ export interface ISettingsEditorItem {
   item: PropertyItem<SettingsTypes['props']>;
 }
 
+interface IUnitBaseUIItem {
+  id: MeasurementUnit['unit'];
+  label: MeasurementUnit['unit'];
+}
+
 const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
   item,
   groupName,
   onValueChange,
 }) => {
-  const [activeUnit, setActiveUnit] = useState(item.activeUnit);
+  const [activeUnit, setActiveUnit] = useState<IUnitBaseUIItem[]>([
+    { label: item.activeUnit, id: item.activeUnit },
+  ]);
   const [value, setValue] = useState(item.value);
 
   const debouncedValueCb = useDebounceCallback(onValueChange, 200);
 
   const valueChangeHandler = useCallback(
     (value: any) => {
-      setValue(value);
-      debouncedValueCb(groupName, item.name, value, activeUnit);
+      const parsedValue = getValueFromObject({
+        value: value,
+        unit: activeUnit[0].id,
+      });
+      setValue(parsedValue);
+      debouncedValueCb(groupName, item.name, parsedValue, activeUnit[0].id);
     },
     [groupName, item.name, activeUnit, debouncedValueCb]
   );
 
   const unitChangeHandler = useCallback(
-    (unit: MeasurementUnit['unit']) => {
+    (unit: any) => {
       setActiveUnit(value);
-      debouncedValueCb(groupName, item.name, value, unit);
+      debouncedValueCb(groupName, item.name, value, unit[0].id);
     },
     [groupName, item.name, activeUnit, debouncedValueCb]
   );
 
   useEffect(() => {
+    if (item.name === 'borderColor') {
+      console.log('borderColor changed');
+      console.log(item.value);
+    }
     setValue(item.value);
-    setActiveUnit(item.activeUnit);
+    setActiveUnit([{ label: item.activeUnit, id: item.activeUnit }]);
   }, [item.value, item.activeUnit]);
 
   return (
     <div className="mb-[10px] flex flex-col text-small">
       <p className="mr-[10px]">{item.name}</p>
-      <div className="mt-[5px] flex">
-        <input
-          className="w-[150px] border-b-[1px] border-white bg-gray-dark text-white focus:bg-gray-light focus:outline-none"
+      <div className="mt-[5px] flex gap-[5px]">
+        <Input
+          size={'mini'}
           type="text"
           value={value}
           onChange={(e) => valueChangeHandler(e.target.value)}
         />
-        <select
+        <Select
           value={activeUnit}
-          className="ml-[10px] bg-gray-dark text-white"
-          name={item.name}
-          onChange={(e) =>
-            unitChangeHandler(e.target.value as MeasurementUnit['unit'])
-          }
-        >
-          {item.availableUnits.map((unit, idx) => (
-            <option key={idx} value={unit}>
-              {unit}
-            </option>
-          ))}
-        </select>
+          size={'mini'}
+          clearable={false}
+          searchable={false}
+          options={item.availableUnits.map((unit) => ({
+            id: unit,
+            label: unit,
+          }))}
+          onChange={(params) => unitChangeHandler(params.value)}
+        />
       </div>
     </div>
   );

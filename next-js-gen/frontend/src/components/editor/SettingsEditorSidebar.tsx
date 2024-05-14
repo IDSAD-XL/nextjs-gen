@@ -30,10 +30,6 @@ const SettingsEditorSidebar = () => {
     }) as PropertiesGroup<SettingsTypes>[];
   }, [activeEditorComponent?.component.id]);
 
-  useEffect(() => {
-    console.log(availableSettings);
-  }, [availableSettings]);
-
   return (
     <div className="fixed right-0 top-0 h-screen w-[300px] overflow-y-auto bg-gray-dark px-[12px] pt-[80px]">
       {activeComponent && (
