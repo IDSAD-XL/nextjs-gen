@@ -5,6 +5,7 @@ import React from 'react';
 import ThemeWrapper from '@/components/ui/ThemeWrapper';
 import Header from '@/components/ui/Header';
 import classNames from 'classnames';
+import ModalRenderer from '@/components/modals/ModalRenderer';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -24,6 +25,7 @@ export default function RootLayout({
         className={classNames(inter.className, 'flex min-h-screen flex-col')}
       >
         <ThemeWrapper>
+          <ModalRenderer />
           <Header />
           {children}
         </ThemeWrapper>

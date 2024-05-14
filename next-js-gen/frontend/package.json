@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@types/uuid4": "^2.0.3",
+    "axios": "^1.6.8",
     "baseui": "^12.2.0",
     "classnames": "^2.5.1",
+    "formik": "^2.4.6",
     "next": "14.2.3",
     "react": "^18",
     "react-dnd": "^16.0.1",
@@ -22,6 +24,7 @@
     "styletron-react": "^6.1.0",
     "usehooks-ts": "^3.1.0",
     "uuid4": "^2.0.3",
+    "yup": "^1.4.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

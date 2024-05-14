@@ -28,7 +28,6 @@ const useEditorStore = create<EditorState>((set, getState) => ({
   },
   activeEditorComponent: null,
   setActiveEditorComponent: (component, parentElementsPathIds) => {
-    console.log(component, parentElementsPathIds);
     set((state) => {
       return {
         activeEditorComponent: {
@@ -37,7 +36,6 @@ const useEditorStore = create<EditorState>((set, getState) => ({
         },
       };
     });
-    console.log(getState());
   },
   pushComponent: (
     componentTagName: ComponentsTypes['name'],

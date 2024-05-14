@@ -14,6 +14,11 @@ const config: Config = {
         light: '#575757',
       },
       white: '#FFFFFF',
+      red: {
+        light: '#FFDADA',
+        medium: '#FF5C5C',
+        dark: '#FF0000',
+      },
     },
     extend: {
       backgroundImage: {},
