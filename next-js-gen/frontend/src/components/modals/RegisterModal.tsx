@@ -11,13 +11,11 @@ import {
 import * as Yup from 'yup';
 import useAuthStore from '@/store/useAuthStore';
 import useModalStore from '@/store/useModalStore';
-import { register } from '@/utils/auth';
-import { Input } from 'baseui/input';
 import { Button } from 'baseui/button';
 import { StyledLink } from 'baseui/link';
 import { ArrowRight } from 'baseui/icon';
-import { Badge } from 'baseui/badge';
 import CustomInput from '@/components/ui/CustomInput';
+import useApiStore from '@/store/useApiStore';
 
 interface RegisterFormValues {
   name: string;
@@ -32,6 +30,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterModal: React.FC = () => {
+  const { register } = useApiStore();
   const { setAuth } = useAuthStore();
   const { closeModal, openAuthModal } = useModalStore();
   const handleSubmit = async (
@@ -39,10 +38,7 @@ const RegisterModal: React.FC = () => {
     { setSubmitting, setErrors }: FormikHelpers<RegisterFormValues>
   ) => {
     try {
-      console.log(values);
-      const { token, user } = await register(values);
-      setAuth(token, user);
-      localStorage.setItem('token', token);
+      await register(values);
       closeModal();
     } catch (error) {
       setErrors({ email: 'Email is already taken' });

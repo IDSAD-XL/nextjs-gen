@@ -7,7 +7,13 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import SettingsEditorSidebar from '@/components/editor/SettingsEditorSidebar';
 
-export default function Home() {
+interface ProjectItemPageProps {
+  params: {
+    id: string;
+  };
+}
+
+const ProjectItemPage: React.FC<ProjectItemPageProps> = ({ params }) => {
   const { editorData } = useEditorStore();
 
   return (
@@ -23,4 +29,6 @@ export default function Home() {
       </DndProvider>
     </section>
   );
-}
+};
+
+export default ProjectItemPage;

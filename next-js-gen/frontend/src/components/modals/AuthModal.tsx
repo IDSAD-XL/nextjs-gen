@@ -11,13 +11,11 @@ import {
 import * as Yup from 'yup';
 import useAuthStore from '@/store/useAuthStore';
 import useModalStore from '@/store/useModalStore';
-import { login } from '@/utils/auth';
-import { Input } from 'baseui/input';
 import { Button } from 'baseui/button';
 import { StyledLink } from 'baseui/link';
 import { ArrowRight } from 'baseui/icon';
 import CustomInput from '@/components/ui/CustomInput';
-import { AxiosError, AxiosResponse } from 'axios';
+import useApiStore from '@/store/useApiStore';
 
 interface AuthFormValues {
   email: string;
@@ -30,7 +28,7 @@ const AuthSchema = Yup.object().shape({
 });
 
 const AuthModal: React.FC = () => {
-  const { setAuth } = useAuthStore();
+  const { login } = useApiStore();
   const { closeModal, openRegisterModal } = useModalStore();
 
   const [error, setError] = React.useState<string | null>(null);
@@ -40,9 +38,7 @@ const AuthModal: React.FC = () => {
     { setSubmitting, setErrors }: FormikHelpers<AuthFormValues>
   ) => {
     try {
-      const { token, user } = await login(values);
-      setAuth(token, user);
-      localStorage.setItem('token', token);
+      await login(values);
       closeModal();
     } catch (error) {
       // @ts-ignore
@@ -57,7 +53,7 @@ const AuthModal: React.FC = () => {
   return (
     <div className="w-96 rounded-lg bg-white p-6 shadow-lg">
       <h2 className="mb-4 text-2xl">Login</h2>
-      {error && <p className="text-red-medium mb-4 text-sm">{error}</p>}
+      {error && <p className="mb-4 text-sm text-red-medium">{error}</p>}
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={AuthSchema}

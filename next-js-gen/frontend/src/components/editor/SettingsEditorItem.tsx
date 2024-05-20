@@ -56,10 +56,6 @@ const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
   );
 
   useEffect(() => {
-    if (item.name === 'borderColor') {
-      console.log('borderColor changed');
-      console.log(item.value);
-    }
     setValue(item.value);
     setActiveUnit([{ label: item.activeUnit, id: item.activeUnit }]);
   }, [item.value, item.activeUnit]);

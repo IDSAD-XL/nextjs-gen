@@ -4,9 +4,14 @@ import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
 import getNewComponent from '@/utils/getNewComponent';
 import { SettingsTypes } from '@/types/styles/settingsTypes';
 import findComponentByIdPath from '@/utils/findComponentByIdPath';
+import useApiStore from '@/store/useApiStore';
+import { debounce } from 'lodash';
+import { Project } from '@/types/projects/project';
+import useProjectsStore from '@/store/useProjectsStore';
 
 interface EditorState {
   editorData: Editor;
+  setEditorData: (editorData: Editor) => void;
   activeEditorComponent: {
     component: ComponentsTypes;
     parentElementsPathIds: string[];
@@ -22,11 +27,31 @@ interface EditorState {
   editComponent: (settings: SettingsTypes[]) => void;
 }
 
-const useEditorStore = create<EditorState>((set, getState) => ({
+const debouncedUpdateProject = debounce(async () => {
+  console.log(123);
+  const { activeProject } = useProjectsStore.getState();
+  const { editorData } = useEditorStore.getState();
+
+  if (!activeProject) return;
+
+  const project: Project = {
+    _id: activeProject,
+    components: editorData.components,
+  };
+
+  const { updateProject } = useApiStore.getState();
+
+  await updateProject(project);
+}, 5000);
+
+const useEditorStore = create<EditorState>((set, get) => ({
   editorData: {
     components: [],
   },
   activeEditorComponent: null,
+  setEditorData: (editorData) => {
+    set({ editorData });
+  },
   setActiveEditorComponent: (component, parentElementsPathIds) => {
     set((state) => {
       return {
@@ -58,6 +83,8 @@ const useEditorStore = create<EditorState>((set, getState) => ({
         components.push(newComponent);
       }
 
+      debouncedUpdateProject();
+
       return { editorData: { components } };
     });
   },
@@ -65,8 +92,6 @@ const useEditorStore = create<EditorState>((set, getState) => ({
     set((state) => {
       const { components } = state.editorData;
       const activeComponent = state.activeEditorComponent;
-
-      console.log(settings);
 
       if (activeComponent?.parentElementsPathIds) {
         const foundElement = findComponentByIdPath(
@@ -78,6 +103,8 @@ const useEditorStore = create<EditorState>((set, getState) => ({
           foundElement.styles = settings;
         }
       }
+
+      debouncedUpdateProject();
 
       return { editorData: { components } };
     });

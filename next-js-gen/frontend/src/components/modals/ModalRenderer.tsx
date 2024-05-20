@@ -4,6 +4,7 @@ import useModalStore from '@/store/useModalStore';
 import AuthModal from '@/components/modals/AuthModal';
 import RegisterModal from '@/components/modals/RegisterModal';
 import { useOnClickOutside } from 'usehooks-ts';
+import CreateNewProject from '@/components/modals/CreateNewProject';
 
 const ModalRenderer: React.FC = () => {
   const { activeModal, closeModal } = useModalStore();
@@ -19,6 +20,7 @@ const ModalRenderer: React.FC = () => {
       <div ref={modalRef}>
         {activeModal === 'auth' && <AuthModal />}
         {activeModal === 'register' && <RegisterModal />}
+        {activeModal === 'createNewProject' && <CreateNewProject />}
       </div>
     </div>
   );
