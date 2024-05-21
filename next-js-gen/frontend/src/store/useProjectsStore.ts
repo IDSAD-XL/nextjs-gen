@@ -3,19 +3,31 @@ import { Project } from '@/types/projects/project';
 
 interface ProjectsState {
   projectsList: Project[];
-  activeProject: Project['_id'] | null;
-  setActiveProject: (projectId: Project['_id']) => void;
+  activeProject: { _id: Project['_id']; name: Project['name'] } | null;
+  setActiveProject: (project: {
+    _id: Project['_id'];
+    name: Project['name'];
+  }) => void;
   setProjectsList: (projectsList: Project[]) => void;
   projectIsSaving: boolean;
+  projectIsSaved: boolean;
   setProjectIsSaving: (isSaving: boolean) => void;
+  setProjectIsSaved: (isSaved: boolean) => void;
 }
 
 const useProjectsStore = create<ProjectsState>((set, get) => ({
   projectsList: [],
   activeProject: null,
   projectIsSaving: false,
-  setActiveProject: (projectId: string) => {
-    set({ activeProject: projectId });
+  projectIsSaved: true,
+  setActiveProject: (project: {
+    _id: Project['_id'];
+    name: Project['name'];
+  }) => {
+    set({ activeProject: project });
+  },
+  setProjectIsSaved: (isSaved: boolean) => {
+    set({ projectIsSaved: isSaved });
   },
   setProjectsList: (projectsList: Project[]) => {
     set({ projectsList });

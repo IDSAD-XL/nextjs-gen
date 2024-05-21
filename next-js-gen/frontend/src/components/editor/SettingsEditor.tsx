@@ -95,7 +95,7 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
   }, [mappedAvailableSettingsToActual]);*/
 
   return (
-    <div className="flex flex-col gap-[20px] text-white">
+    <div className="relative flex flex-col gap-[20px] text-white">
       {mappedAvailableSettingsToActual.map((setting) => {
         return (
           <div key={setting.name}>

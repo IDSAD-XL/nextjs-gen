@@ -12,6 +12,7 @@ import useApiStore from '@/store/useApiStore';
 import { Project } from '@/types/projects/project';
 import { Spinner } from 'baseui/spinner';
 import classNames from 'classnames';
+import EditorProjectBar from '@/components/ui/EditorProjectBar';
 
 interface ProjectItemPageProps {
   params: {
@@ -26,16 +27,13 @@ const ProjectItemPage: React.FC<ProjectItemPageProps> = ({ params }) => {
   const { editorData, setEditorData } = useEditorStore();
 
   useEffect(() => {
-    setActiveProject(params.id);
-  }, []);
-
-  useEffect(() => {
     if (isAuthenticated) {
       const getProject = async () => {
         return await getProjectById(params.id);
       };
       getProject().then((value: Project) => {
         setEditorData({ components: value.components });
+        setActiveProject({ _id: value._id, name: value.name });
       });
     }
   }, [isAuthenticated]);
@@ -61,6 +59,7 @@ const ProjectItemPage: React.FC<ProjectItemPageProps> = ({ params }) => {
           <div className="relative flex w-full grow">
             <Sidebar />
             <main className="flex w-full flex-col">
+              <EditorProjectBar />
               <EditorComponent {...editorData} />
             </main>
             <SettingsEditorSidebar />

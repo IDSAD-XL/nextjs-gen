@@ -28,14 +28,14 @@ interface EditorState {
 }
 
 const debouncedUpdateProject = debounce(async () => {
-  console.log(123);
   const { activeProject } = useProjectsStore.getState();
   const { editorData } = useEditorStore.getState();
 
   if (!activeProject) return;
 
   const project: Project = {
-    _id: activeProject,
+    _id: activeProject._id,
+    name: activeProject.name,
     components: editorData.components,
   };
 
@@ -83,6 +83,8 @@ const useEditorStore = create<EditorState>((set, get) => ({
         components.push(newComponent);
       }
 
+      useProjectsStore.getState().setProjectIsSaved(false);
+
       debouncedUpdateProject();
 
       return { editorData: { components } };
@@ -103,6 +105,8 @@ const useEditorStore = create<EditorState>((set, get) => ({
           foundElement.styles = settings;
         }
       }
+
+      useProjectsStore.getState().setProjectIsSaved(false);
 
       debouncedUpdateProject();
 

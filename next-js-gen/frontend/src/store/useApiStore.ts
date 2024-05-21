@@ -106,6 +106,7 @@ const useApiStore = create<ApiState>((set, get) => ({
     }
 
     useProjectsStore.getState().setProjectIsSaving(false);
+    useProjectsStore.getState().setProjectIsSaved(true);
     return response.data;
   },
   checkToken: async () => {

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { availableElementsData } from '@/config/availableElementsData';
 import AvailableElementsItem from '@/components/editor/AvailableElementsItem';
+import useProjectsStore from '@/store/useProjectsStore';
 
 const AvailableElements = () => {
   return (
