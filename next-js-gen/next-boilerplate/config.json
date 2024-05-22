@@ -1,0 +1,114 @@
+{
+  "_id": {
+    "$oid": "664a9e1e9320fb7135fb5706"
+  },
+  "name": "123",
+  "owner": {
+    "$oid": "6643aee601c082a5cd3efa05"
+  },
+  "components": [
+    {
+      "id": "e695aacc-c7d6-4e3a-8d90-d1b09edaf97b",
+      "name": "div",
+      "styles": [
+        {
+          "name": "size",
+          "props": {
+            "width": {
+              "unit": "px",
+              "value": "200px"
+            },
+            "height": {
+              "unit": "px",
+              "value": "100px"
+            }
+          }
+        },
+        {
+          "name": "colors",
+          "props": {
+            "backgroundColor": {
+              "unit": "hex",
+              "value": "#7a7a7a"
+            }
+          }
+        },
+        {
+          "name": "padding",
+          "props": {
+            "paddingTop": {
+              "unit": "px",
+              "value": "10px"
+            }
+          }
+        },
+        {
+          "name": "border",
+          "props": {
+            "borderWidth": {
+              "unit": "px",
+              "value": "1px"
+            },
+            "borderColor": {
+              "unit": "string",
+              "value": "red"
+            }
+          }
+        }
+      ],
+      "slots": []
+    },
+    {
+      "id": "ee601bac-48e7-40e8-a9e6-4b8eedc56395",
+      "name": "div",
+      "styles": [
+        {
+          "name": "size",
+          "props": {
+            "width": {
+              "unit": "px",
+              "value": "100px"
+            },
+            "height": {
+              "unit": "px",
+              "value": "100px"
+            }
+          }
+        },
+        {
+          "name": "colors",
+          "props": {
+            "backgroundColor": {
+              "unit": "hex",
+              "value": "#7a7a7a"
+            }
+          }
+        },
+        {
+          "name": "padding",
+          "props": {
+            "paddingTop": {
+              "unit": "px",
+              "value": "10px"
+            }
+          }
+        },
+        {
+          "name": "border",
+          "props": {
+            "borderWidth": {
+              "unit": "px",
+              "value": "2px"
+            },
+            "borderColor": {
+              "unit": "string",
+              "value": "yellow"
+            }
+          }
+        }
+      ],
+      "slots": []
+    }
+  ],
+  "__v": 23
+}
