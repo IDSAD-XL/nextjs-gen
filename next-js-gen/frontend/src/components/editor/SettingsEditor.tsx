@@ -6,15 +6,18 @@ import { MeasurementUnit } from '@/types/measurements/measurements';
 import { getValueFromObject } from '@/utils/getValueFromObject';
 import useEditorStore from '@/store/useEditorStore';
 import { getValueWithUnit } from '@/utils/getValueWithUnit';
+import { Attribute } from '@/types/attributes/attributes';
 
 interface ISettingsEditor {
   availableSettings: PropertiesGroup<SettingsTypes>[];
   componentSettings: SettingsTypes[];
+  availableAttributes: Attribute[];
 }
 
 const SettingsEditor: React.FC<ISettingsEditor> = ({
   availableSettings,
   componentSettings,
+  availableAttributes,
 }) => {
   const { editComponent } = useEditorStore();
 
@@ -90,12 +93,11 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
     [componentSettings]
   );
 
-  /*  useEffect(() => {
-    console.log(mappedAvailableSettingsToActual);
-  }, [mappedAvailableSettingsToActual]);*/
-
   return (
     <div className="relative flex flex-col gap-[20px] text-white">
+      {availableAttributes.map((attribute) => (
+        <></>
+      ))}
       {mappedAvailableSettingsToActual.map((setting) => {
         return (
           <div key={setting.name}>

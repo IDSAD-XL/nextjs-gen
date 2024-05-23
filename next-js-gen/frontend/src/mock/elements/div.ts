@@ -35,5 +35,20 @@ export const MockDiv: Div = {
       },
     },
   ],
+  attributes: [
+    {
+      type: 'text',
+      name: 'id',
+      displayName: 'Id',
+      value: '',
+    },
+    {
+      type: 'select',
+      name: 'test',
+      displayName: 'Test',
+      value: '',
+      options: ['test1', 'test2', 'test3'],
+    },
+  ],
   slots: [],
 };

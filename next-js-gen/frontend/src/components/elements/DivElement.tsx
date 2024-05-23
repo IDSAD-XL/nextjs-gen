@@ -1,6 +1,7 @@
 import React, { forwardRef, ReactEventHandler, useEffect, useRef } from 'react';
 import { Div } from '@/types/pageComponents/components';
 import { parseStyles } from '@/utils/parseStyles';
+import { parseAttributes } from '@/utils/parseAttributes';
 
 export interface IDivElement {
   componentData: Div;
@@ -14,6 +15,7 @@ const DivElement = forwardRef<HTMLDivElement, IDivElement>((props, ref) => {
       ref={ref}
       key={props.componentData.id}
       style={parseStyles(props.componentData.styles)}
+      {...parseAttributes(props.componentData.attributes)}
     >
       {props.children}
     </div>
