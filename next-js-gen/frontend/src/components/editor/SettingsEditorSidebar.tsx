@@ -40,6 +40,7 @@ const SettingsEditorSidebar = () => {
           <SettingsEditor
             availableSettings={availableSettings}
             componentSettings={activeComponent.styles}
+            availableAttributes={activeComponent.attributes}
           />
         </>
       )}

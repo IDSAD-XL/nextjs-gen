@@ -6,12 +6,13 @@ import { MeasurementUnit } from '@/types/measurements/measurements';
 import { getValueFromObject } from '@/utils/getValueFromObject';
 import useEditorStore from '@/store/useEditorStore';
 import { getValueWithUnit } from '@/utils/getValueWithUnit';
-import { Attribute } from '@/types/attributes/attributes';
+import { AttributesTypes } from '@/types/attributes/attributes';
+import AttributeItem from '@/components/editor/AttributeItem';
 
 interface ISettingsEditor {
   availableSettings: PropertiesGroup<SettingsTypes>[];
   componentSettings: SettingsTypes[];
-  availableAttributes: Attribute[];
+  availableAttributes?: AttributesTypes[];
 }
 
 const SettingsEditor: React.FC<ISettingsEditor> = ({
@@ -19,7 +20,7 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
   componentSettings,
   availableAttributes,
 }) => {
-  const { editComponent } = useEditorStore();
+  const { editComponent, editComponentAttributes } = useEditorStore();
 
   const mappedAvailableSettingsToActual: PropertiesGroup<SettingsTypes>[] =
     useMemo(() => {
@@ -93,11 +94,35 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
     [componentSettings]
   );
 
+  const changeAttributeHandler = useCallback(
+    (name: AttributesTypes['name'], value: AttributesTypes['value']) => {
+      if (!availableAttributes) return;
+
+      const attributesCopy = [...availableAttributes];
+
+      attributesCopy.forEach((attribute) => {
+        if (attribute.name === name) {
+          attribute.value = value;
+        }
+      });
+
+      editComponentAttributes(attributesCopy);
+    },
+    [availableAttributes]
+  );
+
   return (
     <div className="relative flex flex-col gap-[20px] text-white">
-      {availableAttributes.map((attribute) => (
-        <></>
-      ))}
+      {availableAttributes && (
+        <div className="flex flex-col">
+          {availableAttributes.map((attribute) => (
+            <AttributeItem
+              onValueChange={changeAttributeHandler}
+              data={attribute}
+            />
+          ))}
+        </div>
+      )}
       {mappedAvailableSettingsToActual.map((setting) => {
         return (
           <div key={setting.name}>

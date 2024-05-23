@@ -8,6 +8,7 @@ import useApiStore from '@/store/useApiStore';
 import { debounce } from 'lodash';
 import { Project } from '@/types/projects/project';
 import useProjectsStore from '@/store/useProjectsStore';
+import { AttributesTypes } from '@/types/attributes/attributes';
 
 interface EditorState {
   editorData: Editor;
@@ -25,6 +26,7 @@ interface EditorState {
     parentElementsPathIds?: string[]
   ) => void;
   editComponent: (settings: SettingsTypes[]) => void;
+  editComponentAttributes: (attributes: AttributesTypes[]) => void;
 }
 
 const debouncedUpdateProject = debounce(async () => {
@@ -103,6 +105,29 @@ const useEditorStore = create<EditorState>((set, get) => ({
 
         if (foundElement) {
           foundElement.styles = settings;
+        }
+      }
+
+      useProjectsStore.getState().setProjectIsSaved(false);
+
+      debouncedUpdateProject();
+
+      return { editorData: { components } };
+    });
+  },
+  editComponentAttributes: (attributes) => {
+    set((state) => {
+      const { components } = state.editorData;
+      const activeComponent = state.activeEditorComponent;
+
+      if (activeComponent?.parentElementsPathIds) {
+        const foundElement = findComponentByIdPath(
+          components,
+          activeComponent.parentElementsPathIds
+        );
+
+        if (foundElement) {
+          foundElement.attributes = attributes;
         }
       }
 
