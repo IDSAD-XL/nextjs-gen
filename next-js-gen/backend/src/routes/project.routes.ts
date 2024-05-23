@@ -5,8 +5,8 @@ import {
   getProjectsByUser,
   getProjectById,
   updateProject,
-  deleteProject,
-  } from '../controllers/project.controller';
+  deleteProject, generateProject,
+} from '../controllers/project.controller';
 import { protect } from "../middleware/auth.middleware";
 
 const router: Router = Router();
@@ -19,5 +19,6 @@ router.get('/user', getProjectsByUser);
 router.get('/:id', getProjectById);
 router.put('/:id', updateProject);
 router.delete('/:id', deleteProject);
+router.post('/:id/generate', generateProject);
 
 export default router;

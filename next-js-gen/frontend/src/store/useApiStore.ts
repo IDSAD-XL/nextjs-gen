@@ -16,6 +16,7 @@ interface ApiState {
   createNewProject: (project: { name: string }) => Promise<any>;
   getProjectsByUser: () => Promise<any>;
   getProjectById: (id: string) => Promise<any>;
+  getGeneratedProject: () => Promise<any>;
   updateProject: (project: Project) => Promise<any>;
   checkToken: () => Promise<void>;
 }
@@ -108,6 +109,40 @@ const useApiStore = create<ApiState>((set, get) => ({
     useProjectsStore.getState().setProjectIsSaving(false);
     useProjectsStore.getState().setProjectIsSaved(true);
     return response.data;
+  },
+  getGeneratedProject: async () => {
+    const id = useProjectsStore.getState().activeProject?._id;
+
+    if (id) {
+      useProjectsStore.getState().setProjectIsGenerating(true);
+
+      const token = useAuthStore.getState().token;
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/projects/${id}/generate`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${id}.zip`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    }
+    useProjectsStore.getState().setProjectIsGenerating(false);
   },
   checkToken: async () => {
     const token = localStorage.getItem('token');

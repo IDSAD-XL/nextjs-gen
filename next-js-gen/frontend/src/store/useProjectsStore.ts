@@ -11,8 +11,10 @@ interface ProjectsState {
   setProjectsList: (projectsList: Project[]) => void;
   projectIsSaving: boolean;
   projectIsSaved: boolean;
+  projectIsGenerating: boolean;
   setProjectIsSaving: (isSaving: boolean) => void;
   setProjectIsSaved: (isSaved: boolean) => void;
+  setProjectIsGenerating: (isGenerating: boolean) => void;
 }
 
 const useProjectsStore = create<ProjectsState>((set, get) => ({
@@ -20,6 +22,7 @@ const useProjectsStore = create<ProjectsState>((set, get) => ({
   activeProject: null,
   projectIsSaving: false,
   projectIsSaved: true,
+  projectIsGenerating: false,
   setActiveProject: (project: {
     _id: Project['_id'];
     name: Project['name'];
@@ -35,6 +38,9 @@ const useProjectsStore = create<ProjectsState>((set, get) => ({
   setProjectIsSaving: (isSaving: boolean) => {
     console.log('isSaving', isSaving);
     set({ projectIsSaving: isSaving });
+  },
+  setProjectIsGenerating: (isGenerating: boolean) => {
+    set({ projectIsGenerating: isGenerating });
   },
 }));
 
