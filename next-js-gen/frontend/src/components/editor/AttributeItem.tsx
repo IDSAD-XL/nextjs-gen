@@ -3,6 +3,7 @@ import { AttributesTypes } from '@/types/attributes/attributes';
 import { Input } from 'baseui/input';
 import { Select } from 'baseui/select';
 import { useDebounceCallback } from 'usehooks-ts';
+import { Textarea } from 'baseui/textarea';
 
 interface IAttributeItem {
   onValueChange: (
@@ -44,6 +45,14 @@ const AttributeItem: React.FC<IAttributeItem> = ({ data, onValueChange }) => {
     <div className="mb-[10px] flex flex-col text-small">
       <p className="mr-[10px]">{data.displayName}</p>
       <div className="mt-[5px] flex gap-[5px]">
+        {data.type === 'innerText' && (
+          <Textarea
+            size={'mini'}
+            type="text"
+            value={value[0].id}
+            onChange={(e) => valueChangeHandler(e.target.value)}
+          />
+        )}
         {data.type === 'text' && (
           <Input
             size={'mini'}

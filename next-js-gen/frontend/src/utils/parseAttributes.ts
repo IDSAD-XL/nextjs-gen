@@ -6,7 +6,7 @@ export const parseAttributes = (attributes?: AttributesTypes[]) => {
   }
   return attributes.reduce(
     (acc, attribute) => {
-      if (attribute.value) {
+      if (attribute.value && attribute.type !== 'innerText') {
         acc[attribute.name] = attribute.value;
       }
       return acc;

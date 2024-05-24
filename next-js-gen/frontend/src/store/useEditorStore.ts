@@ -27,6 +27,7 @@ interface EditorState {
   ) => void;
   editComponent: (settings: SettingsTypes[]) => void;
   editComponentAttributes: (attributes: AttributesTypes[]) => void;
+  deleteComponent: () => void;
 }
 
 const debouncedUpdateProject = debounce(async () => {
@@ -136,6 +137,44 @@ const useEditorStore = create<EditorState>((set, get) => ({
       debouncedUpdateProject();
 
       return { editorData: { components } };
+    });
+  },
+  deleteComponent: () => {
+    set((state) => {
+      const { components } = state.editorData;
+      const activeComponent = state.activeEditorComponent;
+
+      let componentsCopy = [...components];
+
+      if (activeComponent?.parentElementsPathIds) {
+        if (activeComponent?.parentElementsPathIds.length > 1) {
+          const parent = findComponentByIdPath(
+            componentsCopy,
+            activeComponent.parentElementsPathIds.slice(
+              0,
+              activeComponent.parentElementsPathIds.length - 1
+            )
+          );
+
+          if (parent) {
+            if (parent && parent.slots) {
+              parent.slots = parent.slots.filter(
+                (slot) => slot.id !== activeComponent.component.id
+              );
+            }
+          }
+        } else if (activeComponent?.parentElementsPathIds.length === 1) {
+          componentsCopy = componentsCopy.filter((component) => {
+            return component.id !== activeComponent.component.id;
+          });
+        }
+      }
+
+      useProjectsStore.getState().setProjectIsSaved(false);
+
+      debouncedUpdateProject();
+
+      return { editorData: { components: componentsCopy } };
     });
   },
 }));

@@ -8,6 +8,7 @@ import useEditorStore from '@/store/useEditorStore';
 import { getValueWithUnit } from '@/utils/getValueWithUnit';
 import { AttributesTypes } from '@/types/attributes/attributes';
 import AttributeItem from '@/components/editor/AttributeItem';
+import { Button } from 'baseui/button';
 
 interface ISettingsEditor {
   availableSettings: PropertiesGroup<SettingsTypes>[];
@@ -20,7 +21,8 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
   componentSettings,
   availableAttributes,
 }) => {
-  const { editComponent, editComponentAttributes } = useEditorStore();
+  const { editComponent, editComponentAttributes, deleteComponent } =
+    useEditorStore();
 
   const mappedAvailableSettingsToActual: PropertiesGroup<SettingsTypes>[] =
     useMemo(() => {
@@ -113,6 +115,24 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
 
   return (
     <div className="relative flex flex-col gap-[20px] text-white">
+      <div>
+        <Button
+          kind={'secondary'}
+          size={'compact'}
+          onClick={deleteComponent}
+          overrides={{
+            BaseButton: {
+              style: ({ $theme }) => ({
+                outline: `${$theme.colors.negative500} solid`,
+                backgroundColor: $theme.colors.negative400,
+              }),
+            },
+          }}
+          className="w-full"
+        >
+          Delete
+        </Button>
+      </div>
       {availableAttributes && (
         <div className="flex flex-col">
           {availableAttributes.map((attribute) => (

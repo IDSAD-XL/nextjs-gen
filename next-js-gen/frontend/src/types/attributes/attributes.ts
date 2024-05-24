@@ -13,4 +13,8 @@ export interface AttributeSelect extends Attribute {
   options: string[];
 }
 
-export type AttributesTypes = AttributeText | AttributeSelect;
+export interface AttributeInnerText extends Attribute {
+  type: 'innerText';
+}
+
+export type AttributesTypes = AttributeText | AttributeSelect | AttributeInnerText;

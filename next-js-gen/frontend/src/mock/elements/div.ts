@@ -49,6 +49,12 @@ export const MockDiv: Div = {
       value: '',
       options: ['test1', 'test2', 'test3'],
     },
+    {
+      type: 'innerText',
+      name: 'innerText',
+      displayName: 'InnerText',
+      value: '',
+    },
   ],
   slots: [],
 };

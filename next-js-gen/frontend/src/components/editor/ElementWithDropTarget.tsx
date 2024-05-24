@@ -3,6 +3,7 @@ import { useDrop, DropTargetMonitor } from 'react-dnd';
 import useEditorStore from '@/store/useEditorStore';
 import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
 import { IDivElement } from '@/components/elements/DivElement';
+import { getInnerTextFromAttributes } from '@/utils/getInnerTextFromAttributes';
 
 export interface IElementWithDropTarget {
   componentData: ComponentsTypes;
@@ -14,7 +15,7 @@ export interface IElementWithDropTarget {
 export const ElementWithDropTarget: React.FC<IElementWithDropTarget> = (
   props
 ) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLElement>(null);
 
   const { pushComponent, setActiveEditorComponent } = useEditorStore();
   const [coll, drop] = useDrop({
@@ -44,6 +45,15 @@ export const ElementWithDropTarget: React.FC<IElementWithDropTarget> = (
         );
       }
     };
+  });
+
+  useEffect(() => {
+    if (ref.current && props.componentData.attributes) {
+      const text = getInnerTextFromAttributes(props.componentData.attributes);
+      if (text) {
+        ref.current.innerText = text.value;
+      }
+    }
   });
 
   const ComponentWithDropTarget = (props: any) => {

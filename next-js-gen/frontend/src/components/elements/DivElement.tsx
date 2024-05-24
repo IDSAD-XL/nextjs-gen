@@ -2,6 +2,7 @@ import React, { forwardRef, ReactEventHandler, useEffect, useRef } from 'react';
 import { Div } from '@/types/pageComponents/components';
 import { parseStyles } from '@/utils/parseStyles';
 import { parseAttributes } from '@/utils/parseAttributes';
+import { getInnerTextFromAttributes } from '@/utils/getInnerTextFromAttributes';
 
 export interface IDivElement {
   componentData: Div;
