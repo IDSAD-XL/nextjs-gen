@@ -12,4 +12,14 @@ export const availableElementsData: IAvailableElements[] = [
     displayName: 'Div',
     description: 'A generic container element',
   },
+  {
+    name: 'p',
+    displayName: 'Paragraph',
+    description: 'A paragraph element',
+  },
+  {
+    name: 'img',
+    displayName: 'Image',
+    description: 'An image element',
+  },
 ];

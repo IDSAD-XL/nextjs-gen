@@ -14,7 +14,7 @@ const EditorComponent: React.FC<IEditor> = ({ components }) => {
   const [, drop] = useDrop(
     () => ({
       accept: 'COMPONENT',
-      drop: (item: ComponentsTypes['name'], monitor) => {
+      drop: (item: { name: ComponentsTypes['name'] }, monitor) => {
         if (!monitor.didDrop()) {
           pushComponent(item);
         }

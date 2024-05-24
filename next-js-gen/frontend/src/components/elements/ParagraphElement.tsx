@@ -1,26 +1,26 @@
 import React, { forwardRef, ReactEventHandler, useEffect, useRef } from 'react';
-import { DivElem } from '@/types/pageComponents/components';
+import { DivElem, PElem } from '@/types/pageComponents/components';
 import { parseStyles } from '@/utils/parseStyles';
 import { parseAttributes } from '@/utils/parseAttributes';
 import { getInnerTextFromAttributes } from '@/utils/getInnerTextFromAttributes';
 
-export interface IDivElement {
-  componentData: DivElem;
+export interface IPElement {
+  componentData: PElem;
   children: React.ReactNode;
   path: string[];
 }
 
-const DivElement = forwardRef<HTMLDivElement, IDivElement>((props, ref) => {
+const ParagraphElement = forwardRef<HTMLDivElement, IPElement>((props, ref) => {
   return (
-    <div
+    <p
       ref={ref}
       key={props.componentData.id}
       style={parseStyles(props.componentData.styles)}
       {...parseAttributes(props.componentData.attributes)}
     >
       {props.children}
-    </div>
+    </p>
   );
 });
 
-export default DivElement;
+export default ParagraphElement;

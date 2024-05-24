@@ -2,12 +2,11 @@ import React, { FC, useEffect, useRef } from 'react';
 import { useDrop, DropTargetMonitor } from 'react-dnd';
 import useEditorStore from '@/store/useEditorStore';
 import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
-import { IDivElement } from '@/components/elements/DivElement';
 import { getInnerTextFromAttributes } from '@/utils/getInnerTextFromAttributes';
 
 export interface IElementWithDropTarget {
   componentData: ComponentsTypes;
-  Component: FC<IDivElement>;
+  Component: FC<ComponentsTypes>;
   path: string[];
   children?: React.ReactNode;
 }
@@ -20,7 +19,10 @@ export const ElementWithDropTarget: React.FC<IElementWithDropTarget> = (
   const { pushComponent, setActiveEditorComponent } = useEditorStore();
   const [coll, drop] = useDrop({
     accept: 'COMPONENT',
-    drop: (item: ComponentsTypes['name'], monitor: DropTargetMonitor) => {
+    drop: (
+      item: { name: ComponentsTypes['name'] },
+      monitor: DropTargetMonitor
+    ) => {
       if (!monitor.didDrop()) {
         pushComponent(item, props.path);
       }

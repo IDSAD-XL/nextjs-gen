@@ -1,5 +1,5 @@
-import { Div } from '@/types/pageComponents/components';
-export const MockDiv: Div = {
+import { DivElem } from '@/types/pageComponents/components';
+export const MockDiv: DivElem = {
   id: 'mockDiv',
   name: 'div',
   styles: [
@@ -33,27 +33,6 @@ export const MockDiv: Div = {
           value: '10px',
         },
       },
-    },
-  ],
-  attributes: [
-    {
-      type: 'text',
-      name: 'id',
-      displayName: 'Id',
-      value: '',
-    },
-    {
-      type: 'select',
-      name: 'test',
-      displayName: 'Test',
-      value: '',
-      options: ['test1', 'test2', 'test3'],
-    },
-    {
-      type: 'innerText',
-      name: 'innerText',
-      displayName: 'InnerText',
-      value: '',
     },
   ],
   slots: [],

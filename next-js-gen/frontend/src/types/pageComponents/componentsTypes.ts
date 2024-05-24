@@ -1,3 +1,8 @@
-import { Div } from '@/types/pageComponents/components';
+import {
+  DivElem,
+  ImgElem,
+  PElem,
+  SpanElem,
+} from '@/types/pageComponents/components';
 
-export type ComponentsTypes = Div;
+export type ComponentsTypes = DivElem | PElem | SpanElem | ImgElem;

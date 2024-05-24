@@ -1,6 +1,8 @@
 import DivElement from '@/components/elements/DivElement';
 import { ComponentsTypes } from '@/types/pageComponents/componentsTypes';
 import { ElementWithDropTarget } from '@/components/editor/ElementWithDropTarget';
+import ParagraphElement from '@/components/elements/ParagraphElement';
+import ImgElement from '@/components/elements/ImgElement';
 
 export default function getComponent(
   component: ComponentsTypes,
@@ -8,9 +10,16 @@ export default function getComponent(
   path: string[] = []
 ) {
   let Comp;
+  console.log(component.name);
   switch (component.name) {
     case 'div':
       Comp = DivElement;
+      break;
+    case 'p':
+      Comp = ParagraphElement;
+      break;
+    case 'img':
+      Comp = ImgElement;
       break;
     default:
       Comp = DivElement;

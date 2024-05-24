@@ -8,7 +8,7 @@ import {
   SizeProps,
 } from '@/types/styles/properties';
 
-export default interface Div extends BaseComponent {
-  name: 'div';
+export default interface ImgElem extends BaseComponent {
+  name: 'img';
   styles: Array<SizeProps | Position | Margin | Padding | Colors | Border>;
 }

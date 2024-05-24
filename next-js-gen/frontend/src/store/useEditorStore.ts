@@ -22,7 +22,7 @@ interface EditorState {
     parentElementsPathIds: string[]
   ) => void;
   pushComponent: (
-    component: ComponentsTypes['name'],
+    componentData: { name: ComponentsTypes['name'] },
     parentElementsPathIds?: string[]
   ) => void;
   editComponent: (settings: SettingsTypes[]) => void;
@@ -66,12 +66,14 @@ const useEditorStore = create<EditorState>((set, get) => ({
     });
   },
   pushComponent: (
-    componentTagName: ComponentsTypes['name'],
+    componentData: { name: ComponentsTypes['name'] },
     parentElementsPathIds
   ) => {
     set((state) => {
       const { components } = state.editorData;
-      const newComponent = getNewComponent(componentTagName);
+      const newComponent = getNewComponent(componentData.name);
+      console.log(componentData);
+      console.log(newComponent);
 
       if (parentElementsPathIds) {
         const foundElement = findComponentByIdPath(
@@ -174,7 +176,10 @@ const useEditorStore = create<EditorState>((set, get) => ({
 
       debouncedUpdateProject();
 
-      return { editorData: { components: componentsCopy } };
+      return {
+        editorData: { components: componentsCopy },
+        activeEditorComponent: null,
+      };
     });
   },
 }));
