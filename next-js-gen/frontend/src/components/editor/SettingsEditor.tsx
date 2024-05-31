@@ -137,6 +137,7 @@ const SettingsEditor: React.FC<ISettingsEditor> = ({
         <div className="flex flex-col">
           {availableAttributes.map((attribute) => (
             <AttributeItem
+              key={attribute.name}
               onValueChange={changeAttributeHandler}
               data={attribute}
             />

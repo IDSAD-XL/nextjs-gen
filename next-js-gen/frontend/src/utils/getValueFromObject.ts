@@ -1,7 +1,6 @@
 import { MeasurementUnit } from '@/types/measurements/measurements';
 
 export function getValueFromObject(object: MeasurementUnit): string {
-  console.log(object);
   let value;
 
   if (['px', 'em', 'rem', 'percent', 'vh', 'vw'].includes(object.unit)) {

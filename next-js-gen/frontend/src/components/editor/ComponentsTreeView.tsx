@@ -81,7 +81,10 @@ const ComponentsTreeView = () => {
         'translate-x-0': treeViewOpen,
       })}
     >
-      <div className="flex justify-end">
+      <div className="flex items-center justify-between pl-[20px]">
+        <h2 className="text-[24px] font-bold text-white">
+          Components tree view
+        </h2>
         <Delete
           color={'#fff'}
           size={50}
