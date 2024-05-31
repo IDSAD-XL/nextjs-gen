@@ -100,6 +100,18 @@ const useEditorStore = create<EditorState>((set, get) => ({
       const { components } = state.editorData;
       const activeComponent = state.activeEditorComponent;
 
+      console.log(settings);
+
+      settings.forEach((setting) => {
+        const keys = Object.keys(setting.props) as any[];
+        keys.forEach((key) => {
+          const property = (setting as any).props[key];
+          if (property && property.value === '') {
+            delete (setting as any).props[key];
+          }
+        });
+      });
+
       if (activeComponent?.parentElementsPathIds) {
         const foundElement = findComponentByIdPath(
           components,

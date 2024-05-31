@@ -6,6 +6,8 @@ import path from "path";
 import fs from 'fs-extra';
 import { exec } from 'child_process';
 import archiver from 'archiver';
+import {spawn} from "node:child_process";
+import {gzip} from "node:zlib";
 
 export const createProject = async (req: AuthRequest, res: Response, next: NextFunction) => {
   const { name } = req.body;

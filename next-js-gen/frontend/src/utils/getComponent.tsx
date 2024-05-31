@@ -10,7 +10,6 @@ export default function getComponent(
   path: string[] = []
 ) {
   let Comp;
-  console.log(component.name);
   switch (component.name) {
     case 'div':
       Comp = DivElement;
@@ -33,6 +32,7 @@ export default function getComponent(
       key={component.id}
       componentData={component}
       path={currentPath}
+      //@ts-ignore
       Component={Comp}
     >
       {component.slots && getSlots(component.slots, currentPath)}

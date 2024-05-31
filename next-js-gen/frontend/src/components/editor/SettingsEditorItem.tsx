@@ -49,7 +49,8 @@ const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
 
   const unitChangeHandler = useCallback(
     (unit: any) => {
-      setActiveUnit(value);
+      console.log(unit);
+      setActiveUnit(unit);
       debouncedValueCb(groupName, item.name, value, unit[0].id);
     },
     [groupName, item.name, activeUnit, debouncedValueCb]
