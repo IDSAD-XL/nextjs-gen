@@ -13,6 +13,7 @@ import { Project } from '@/types/projects/project';
 import { Spinner } from 'baseui/spinner';
 import classNames from 'classnames';
 import EditorProjectBar from '@/components/ui/EditorProjectBar';
+import ComponentsTreeView from '@/components/editor/ComponentsTreeView';
 
 interface ProjectItemPageProps {
   params: {
@@ -54,6 +55,7 @@ const ProjectItemPage: React.FC<ProjectItemPageProps> = ({ params }) => {
           </p>
         </div>
       )}
+      {editorData && <ComponentsTreeView />}
       {editorData && (
         <DndProvider backend={HTML5Backend}>
           <div className="relative flex w-full grow">

@@ -25,7 +25,9 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-[1rem]">
         <div className="flex h-full items-center justify-between">
           <div className="flex items-center">
-            <h1 className="text-extraLarge font-bold text-white">Logo</h1>
+            <h1 className="text-extraLarge font-bold text-white">
+              Next<span className="text-small font-light">.Gen</span>
+            </h1>
           </div>
           <div className="flex grow justify-between pl-[50px]">
             <nav className="flex items-center gap-[20px]">

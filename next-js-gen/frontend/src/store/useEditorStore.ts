@@ -12,6 +12,8 @@ import { AttributesTypes } from '@/types/attributes/attributes';
 
 interface EditorState {
   editorData: Editor;
+  treeViewOpen: boolean;
+  setTreeViewOpen: (open: boolean) => void;
   setEditorData: (editorData: Editor) => void;
   activeEditorComponent: {
     component: ComponentsTypes;
@@ -21,6 +23,7 @@ interface EditorState {
     component: ComponentsTypes,
     parentElementsPathIds: string[]
   ) => void;
+  setActiveEditorComponentByPath: (parentElementsPathIds: string[]) => void;
   pushComponent: (
     componentData: { name: ComponentsTypes['name'] },
     parentElementsPathIds?: string[]
@@ -52,8 +55,12 @@ const useEditorStore = create<EditorState>((set, get) => ({
     components: [],
   },
   activeEditorComponent: null,
+  treeViewOpen: false,
   setEditorData: (editorData) => {
     set({ editorData });
+  },
+  setTreeViewOpen: (open) => {
+    set({ treeViewOpen: open });
   },
   setActiveEditorComponent: (component, parentElementsPathIds) => {
     set((state) => {
@@ -63,6 +70,26 @@ const useEditorStore = create<EditorState>((set, get) => ({
           parentElementsPathIds,
         },
       };
+    });
+  },
+  setActiveEditorComponentByPath: (parentElementsPathIds) => {
+    set((state) => {
+      const { components } = state.editorData;
+      const foundElement = findComponentByIdPath(
+        components,
+        parentElementsPathIds
+      );
+
+      if (foundElement) {
+        return {
+          activeEditorComponent: {
+            component: foundElement,
+            parentElementsPathIds,
+          },
+        };
+      }
+
+      return { activeEditorComponent: null };
     });
   },
   pushComponent: (
