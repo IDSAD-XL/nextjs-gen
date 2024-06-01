@@ -7,7 +7,7 @@ export function getValueFromObject(object: MeasurementUnit): string {
     //parse all numbers
     const regex = /(\d+)/g;
     value = object.value.toString().match(regex)?.join('');
-  } else if (['string'].includes(object.unit)) {
+  } else if (['string', 'hex'].includes(object.unit)) {
     value = object.value.toString();
   }
 

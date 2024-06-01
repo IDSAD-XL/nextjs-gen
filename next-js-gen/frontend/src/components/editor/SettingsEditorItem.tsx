@@ -65,23 +65,43 @@ const SettingsEditorItem: React.FC<ISettingsEditorItem> = ({
     <div className="mb-[10px] flex flex-col text-small">
       <p className="mr-[10px]">{item.name}</p>
       <div className="mt-[5px] flex gap-[5px]">
-        <Input
-          size={'mini'}
-          type="text"
-          value={value}
-          onChange={(e) => valueChangeHandler(e.target.value)}
-        />
-        <Select
-          value={activeUnit}
-          size={'mini'}
-          clearable={false}
-          searchable={false}
-          options={item.availableUnits.map((unit) => ({
-            id: unit,
-            label: unit,
-          }))}
-          onChange={(params) => unitChangeHandler(params.value)}
-        />
+        {item.inputType === 'select' && (
+          <Select
+            value={activeUnit}
+            size={'mini'}
+            clearable={false}
+            searchable={false}
+            options={item.availableUnits.map((unit) => ({
+              id: unit,
+              label: unit,
+            }))}
+            onChange={(params) => {
+              unitChangeHandler(params.value);
+              valueChangeHandler(params.value?.id);
+            }}
+          />
+        )}
+        {item.inputType === 'default' && (
+          <>
+            <Input
+              size={'mini'}
+              type="text"
+              value={value}
+              onChange={(e) => valueChangeHandler(e.target.value)}
+            />
+            <Select
+              value={activeUnit}
+              size={'mini'}
+              clearable={false}
+              searchable={false}
+              options={item.availableUnits.map((unit) => ({
+                id: unit,
+                label: unit,
+              }))}
+              onChange={(params) => unitChangeHandler(params.value)}
+            />
+          </>
+        )}
       </div>
     </div>
   );

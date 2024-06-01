@@ -99,8 +99,6 @@ const useEditorStore = create<EditorState>((set, get) => ({
     set((state) => {
       const { components } = state.editorData;
       const newComponent = getNewComponent(componentData.name);
-      console.log(componentData);
-      console.log(newComponent);
 
       if (parentElementsPathIds) {
         const foundElement = findComponentByIdPath(
@@ -111,8 +109,11 @@ const useEditorStore = create<EditorState>((set, get) => ({
         if (foundElement && foundElement.slots) {
           foundElement.slots.push(newComponent);
         }
+
+        get().setActiveEditorComponent(newComponent, parentElementsPathIds);
       } else {
         components.push(newComponent);
+        get().setActiveEditorComponent(newComponent, [newComponent.id]);
       }
 
       useProjectsStore.getState().setProjectIsSaved(false);

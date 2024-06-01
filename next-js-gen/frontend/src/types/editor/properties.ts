@@ -6,6 +6,7 @@ export interface PropertyItem<T extends SettingsTypes['props']> {
   availableUnits: MeasurementUnit['unit'][];
   activeUnit: MeasurementUnit['unit'];
   value: any;
+  inputType: 'default' | 'select';
 }
 
 export interface PropertiesGroup<T extends SettingsTypes> {
